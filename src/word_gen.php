@@ -11,7 +11,7 @@ class Puzzle
 
     function __construct($seed)
     {
-        $this->connection = new mysqli('localhost', 'root', '', 'word');
+        $this->connection = new mysqli('mysql', 'root', 'root', 'main');
         $this->seed = $seed;
 
         srand($this->seed);
@@ -60,13 +60,22 @@ class Puzzle
     }
 
     function get_word($index){  return $this->puzzle_words[$index];  }
+
     function isThisLetterTrue($index_word, $index_letter, $letter){
-        if (strval($this->puzzle_words[$index_word][$index_letter]) === $letter){  return true;  }
-        return false;
+        try {
+            if (strval($this->puzzle_words[$index_word][$index_letter]) === $letter){  return true;  }
+            return false;
+        }
+        catch (Exception $error)
+        {
+            return false;
+        }
+        
     }
 
+    //DEBUG - to be removed
     function get_solution()
     {
-        return $this->puzzle_words;
+        return array_merge([$this->master_word], $this->puzzle_words);
     }
 }

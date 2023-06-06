@@ -23,7 +23,7 @@ $router->get('/start', function (Request $request, Response $response) {
 
 $router->post('/verify', function (Request $request, Response $response) {
     //settiamo i parametri dell'header di risposta
-    $response -> headers -> set('Access-Control-Allow-Origin', '*');
+    $response -> headers -> set('Access-Control-Allow-Origin', 'http://localhost:5173');
     $response -> headers -> set('Content-Type', 'application/json');
     //ricreaiamo il puzzle
     $puzzle = new Puzzle($request->get('seed'));
